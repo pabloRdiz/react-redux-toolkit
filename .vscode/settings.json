@@ -2,7 +2,6 @@
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.rome": true,
-        "source.organizeImports": true
     },
     "[javascript]": {
         "editor.defaultFormatter": "rome.rome"

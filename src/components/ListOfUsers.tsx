@@ -9,40 +9,18 @@ import {
   TableRow,
   Title,
 } from "@tremor/react";
+import { useAppSelector } from "../hooks/store";
+import useUserActions from "../hooks/useUserActions";
+import { UserIdType } from "../models/user";
 
-const users: {
-  id: string;
-  name: string;
-  email: string;
-  github: string;
-}[] = [
-  {
-    id: "1",
-    name: "Peter Doe",
-    email: "pdoe@gmail.com",
-    github: "pdoe",
-  },
-  {
-    id: "2",
-    name: "John Connor",
-    email: "jconnor@gmail.com",
-    github: "jconnor",
-  },
-  {
-    id: "3",
-    name: "Adam Smith",
-    email: "asmith@gmail.com",
-    github: "asmith",
-  },
-  {
-    id: "4",
-    name: "Joao Martins",
-    email: "jmartins@gmail.com",
-    github: "jmartins",
-  },
-];
+const ListOfUsers = () => {
+  const users = useAppSelector((state) => state.users);
+  const { removeUser } = useUserActions();
 
-export function ListOfUsers() {
+  const handleRemoveUser = (id: UserIdType) => {
+    removeUser(id);
+  };
+
   return (
     <Card>
       <Title>
@@ -95,8 +73,9 @@ export function ListOfUsers() {
                     />
                   </svg>
                 </button>
-                <button type="button">
+                <button onClick={() => handleRemoveUser(item.id)} type="button">
                   <svg
+                    aria-label='Remove user'
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -118,4 +97,6 @@ export function ListOfUsers() {
       </Table>
     </Card>
   );
-}
+};
+
+export default ListOfUsers;
